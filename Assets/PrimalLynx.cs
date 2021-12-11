@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PrimalLynx : MonoBehaviour
+public class PrimalLynx : NetworkBehaviour
 {
     public Rigidbody2D rigidbody2D;
     public float lynxSpeed;
@@ -58,5 +58,17 @@ public class PrimalLynx : MonoBehaviour
     void OnUpdate_lynxmovement_fancystuff() 
     {
 
+    }
+
+    /* Lynx Networking */
+
+    public override void OnStartServer()
+    {
+        // disable client stuff
+    }
+
+    public override void OnStartClient()
+    {
+        // register client events, enable effects
     }
 }
