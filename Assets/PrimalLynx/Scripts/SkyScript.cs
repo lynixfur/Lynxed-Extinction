@@ -18,7 +18,9 @@ public class SkyScript : MonoBehaviour
     void Update()
     {
         // uh oh tts bot will read this code hehe ee
-        float e = 1 - (moon.transform.position.y * 0.4f);
+        float e = 0 - (moon.transform.position.y * 0.09f);
+        Debug.Log(e);
         spr.color = new Color(e, e, e);
+        //Debug.Log(moon.transform.position.y);
     }
 }
