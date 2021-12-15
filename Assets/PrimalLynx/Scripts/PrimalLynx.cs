@@ -48,10 +48,10 @@ public class PrimalLynx : MonoBehaviour
 
         if(horizontalMove.x < 0)
         {
-            transform.localScale = new Vector3(-7, 7);
+            transform.localScale = new Vector3(-9, 9);
         }
         else{
-            transform.localScale = new Vector3(7, 7);
+            transform.localScale = new Vector3(9, 9);
         }
     }
 
