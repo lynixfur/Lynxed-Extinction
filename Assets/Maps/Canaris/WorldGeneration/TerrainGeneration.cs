@@ -22,19 +22,24 @@ public class TerrainGeneration : MonoBehaviour
     public Sprite snowy_grass;
     public Sprite tree;
 
+    public GameObject[] worldChunks;
     private void Start()
     {
         seed = Random.Range(-10000,10000);
         GenerateNoiseTexture();
         CreateChunks();
-        //GenerateTerrain();
+        GenerateTerrain();
     }
 
     public void CreateChunks() 
     {
         int numChunks = worldSize / chunkSize;
+        worldChunks = new GameObject[numChunks];
         for (int i = 0; i < numChunks; i++) {
-            GameObject primalChunk = new GameObject(name = "Primal Chunk " + i.ToString());
+            GameObject primalChunk = new GameObject();
+            primalChunk.name = "Primal Chunk " + i.ToString();
+            primalChunk.transform.parent = this.transform;
+            worldChunks[i] = primalChunk;
         }
     }
 
@@ -106,13 +111,18 @@ public class TerrainGeneration : MonoBehaviour
         primalTile.transform.position = new Vector2(x + 0.5f,y + 1.45f);
         primalTile.transform.localScale = new Vector2(2f,2f);
     }
-    public void PlacePrimalTile(Sprite tileTexture, float x, float y)
+    public void PlacePrimalTile(Sprite tileTexture, int x, int y)
     {
-        GameObject primalTile = new GameObject(name = "tile");
-        primalTile.transform.parent = this.transform;
+        GameObject primalTile = new GameObject();
+
+        float chunkCoordinate = (Mathf.Round(x / chunkSize) * chunkSize);
+        chunkCoordinate /= chunkSize;
+        primalTile.transform.parent = worldChunks[(int)chunkCoordinate].transform;
+
         primalTile.AddComponent<SpriteRenderer>();
         primalTile.AddComponent<BoxCollider2D>().size = new Vector2(1f,1f);
         primalTile.GetComponent<SpriteRenderer>().sprite = tileTexture;
+        primalTile.name = tileTexture.name;
         primalTile.transform.position = new Vector2(x + 0.5f,y + 0.5f);
     }
 }
