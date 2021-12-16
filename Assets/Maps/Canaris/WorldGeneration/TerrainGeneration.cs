@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class TerrainGeneration : MonoBehaviour
 {
-    public int worldSize = 900;
+    public Camera cam;
+    public Transform player;
+    public int worldSize = 10;
     public float caveFreq = 0.05f;
     public float terrainFreq = 0.05f;    
     public float heightMultiplier = 40f;
@@ -13,6 +15,7 @@ public class TerrainGeneration : MonoBehaviour
     public int treeChance = 10;
     public float seed;
     public bool generateCaves = true;
+    public float chunkLoadMultiplier;
     public int chunkSize = 16;
     public Texture2D noiseTexture;
 
@@ -26,9 +29,13 @@ public class TerrainGeneration : MonoBehaviour
     private void Start()
     {
         seed = Random.Range(-10000,10000);
-        GenerateNoiseTexture();
+        //GenerateNoiseTexture();
         CreateChunks();
-        GenerateTerrain();
+        //GenerateTerrain();
+    }
+
+    void Update(){
+        RefreshChunks();
     }
 
     public void CreateChunks() 
@@ -39,8 +46,36 @@ public class TerrainGeneration : MonoBehaviour
             GameObject primalChunk = new GameObject();
             primalChunk.name = "Primal Chunk " + i.ToString();
             primalChunk.transform.parent = this.transform;
+            //primalChunk.transform.position = new Vector3(i * chunkSize,0,0);
+            Debug.Log(i);
+            primalChunk.AddComponent<PrimalChunk>();
+            primalChunk.GetComponent<PrimalChunk>().tree = tree;
+            primalChunk.GetComponent<PrimalChunk>().dirt = dirt;
+            primalChunk.GetComponent<PrimalChunk>().snowy_grass = snowy_grass;
+            primalChunk.GetComponent<PrimalChunk>().stone = stone;
+            primalChunk.GetComponent<PrimalChunk>().chunkStart = (i * chunkSize);
+            //primalChunk.GetComponent<PrimalChunk>().noiseTexture = noiseTexture;
             worldChunks[i] = primalChunk;
         }
+    }
+
+    void RefreshChunks(){
+        for(int i = 0; i < worldChunks.Length; i++){
+            if(Mathf.Abs(((i * chunkSize) + (chunkSize / 2)) - player.transform.position.x) > cam.orthographicSize * chunkLoadMultiplier) {
+                worldChunks[i].SetActive(false);
+            }
+            else {
+                worldChunks[i].SetActive(true);
+                // Get Chunk
+                GameObject primalChunk = worldChunks[i];
+                PrimalChunk pchk = primalChunk.GetComponent<PrimalChunk>();          
+                //pchk.GenerateNoiseTexture();
+                //pchk.GenerateChunk(); 
+            }
+                
+        }
+
+        //Debug.Log("PrimalWorld: Active Chunk is : " + (int)Mathf.Abs(player.transform.position.x / 10));
     }
 
     public void GenerateTerrain() {
@@ -88,7 +123,7 @@ public class TerrainGeneration : MonoBehaviour
 
     public void GenerateNoiseTexture()
     {
-        noiseTexture = new Texture2D(worldSize, worldSize);
+        noiseTexture = new Texture2D(10, 10);
 
         for(int x = 0; x < noiseTexture.width; x++) {
             for(int y = 0; y < noiseTexture.height; y++) {

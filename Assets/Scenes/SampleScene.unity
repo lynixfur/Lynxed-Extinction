@@ -727,21 +727,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d279d142f290a04ca2a56650b359537, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  worldSize: 900
+  cam: {fileID: 519420031}
+  player: {fileID: 1942319575}
+  worldSize: 4000
   caveFreq: 0.08
-  terrainFreq: 0.04
+  terrainFreq: 0.03
   heightMultiplier: 25
   heightAddition: 25
   dirtLayerHeight: 3
   treeChance: 10
   seed: 0
   generateCaves: 1
-  chunkSize: 16
+  chunkLoadMultiplier: 4
+  chunkSize: 10
   noiseTexture: {fileID: 0}
   stone: {fileID: 21300000, guid: 6a29a57ba3411984eada90d2fe0032db, type: 3}
   dirt: {fileID: 21300000, guid: 7560a0b868ed65146b842b87d37073b5, type: 3}
   snowy_grass: {fileID: 21300000, guid: 341c2a8a6cc001444955e522428f98f8, type: 3}
   tree: {fileID: 21300000, guid: 24913bde38236984b9d7eb39ae3bd1fc, type: 3}
+  worldChunks: []
 --- !u!4 &724261520
 Transform:
   m_ObjectHideFlags: 0
@@ -774,7 +778,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &768868298
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1646,7 +1650,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1627509132
 Transform:
   m_ObjectHideFlags: 0
@@ -2001,7 +2005,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigidbody2D: {fileID: 1942319576}
   lynxSpeed: 5
-  lynxJumpHeight: 0.5
+  lynxJumpHeight: 0
   lynxRenderer: {fileID: 1942319574}
   groundChecks:
   - {fileID: 479026301}
