@@ -54,6 +54,7 @@ public class TerrainGeneration : MonoBehaviour
             primalChunk.GetComponent<PrimalChunk>().snowy_grass = snowy_grass;
             primalChunk.GetComponent<PrimalChunk>().stone = stone;
             primalChunk.GetComponent<PrimalChunk>().chunkStart = (i * chunkSize);
+            primalChunk.GetComponent<PrimalChunk>().seed = seed;
             //primalChunk.GetComponent<PrimalChunk>().noiseTexture = noiseTexture;
             worldChunks[i] = primalChunk;
         }

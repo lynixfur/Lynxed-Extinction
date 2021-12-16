@@ -25,10 +25,9 @@ public class PrimalChunk : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        seed = 1234;
         if(chunkStart < 40) {
-        GenerateNoiseTexture();
-        GenerateChunk();
+            GenerateNoiseTexture();
+            GenerateChunk();
         }
     }
 
