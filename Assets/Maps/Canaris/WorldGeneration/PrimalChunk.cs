@@ -7,7 +7,7 @@ public class PrimalChunk : MonoBehaviour
     [Header("Tile Sprites")]
     public Sprite stone;
     public Sprite dirt;
-    public Sprite snowy_grass;
+    public GameObject SnowHex;
     public Sprite tree;
     public float seed;
     public int chunkSize = 10;
@@ -62,15 +62,15 @@ public class PrimalChunk : MonoBehaviour
 
                 if( y < height - dirtLayerHeight) 
                 {
-                    tileSprite = stone;
+                    //tileSprite = stone;
                 } else if(y < height - 1) 
                 {
-                    tileSprite = dirt;
+                    //tileSprite = snowy_grass;
                 } else {
 
                     // Surface
 
-                    tileSprite = snowy_grass;
+                    //tileSprite = snowy_grass;
 
                     int t = Random.Range(0, treeChance);
                     if(t == 1) {
@@ -81,10 +81,10 @@ public class PrimalChunk : MonoBehaviour
 
                 if(generateCaves) {
                     if(noiseTexture.GetPixel(x + chunkStart,y).r > 0.2f) {
-                        PlacePrimalTile(tileSprite, x + chunkStart, y);
+                        PlacePrimalTile(x + chunkStart, y);
                     }
                 } else {
-                    PlacePrimalTile(tileSprite, x + chunkStart, y);
+                    PlacePrimalTile(x + chunkStart, y);
                 }
             }
         }
@@ -116,16 +116,26 @@ public class PrimalChunk : MonoBehaviour
         primalTile.transform.position = new Vector2(x + 0.5f,y + 1.45f);
         primalTile.transform.localScale = new Vector2(2f,2f);
     }
-    public void PlacePrimalTile(Sprite tileTexture, int x, int y)
+    public void PlacePrimalTile(int x, int y)
     {
-        GameObject primalTile = new GameObject();
+        //GameObject primalTile = new GameObject();
 
-        primalTile.transform.parent = this.transform;
+        //primalTile.transform.parent = this.transform;
 
-        primalTile.AddComponent<SpriteRenderer>();
-        primalTile.AddComponent<BoxCollider2D>().size = new Vector2(1f,1f);
-        primalTile.GetComponent<SpriteRenderer>().sprite = tileTexture;
-        primalTile.name = tileTexture.name;
-        primalTile.transform.position = new Vector2(x + 0.5f,y + 0.5f);
+        //primalTile.AddComponent<SpriteRenderer>();
+        //primalTile.AddComponent<PolygonCollider2D>();
+        //primalTile.GetComponent<SpriteRenderer>().sprite = tileTexture;
+        //primalTile.name = tileTexture.name;
+        //primalTile.transform.localScale = new Vector2(1.2f,1.2f);
+        if(y%2==1) {
+        //    Debug.Log("Odd!");
+            //primalTile.transform.position = new Vector2(x + 1.0f,y - 1f);
+            GameObject hex = Instantiate(SnowHex, new Vector3(x + 1.0f,y + 0.5f,0),Quaternion.identity);
+            hex.transform.parent = this.transform;
+        } else {
+            //primalTile.transform.position = new Vector2(x + 0.5f,y - 1f);
+            GameObject hex = Instantiate(SnowHex, new Vector3(x + 0.5f,y + 0.5f,0),Quaternion.identity);
+            hex.transform.parent = this.transform;
+        }
     }
 }

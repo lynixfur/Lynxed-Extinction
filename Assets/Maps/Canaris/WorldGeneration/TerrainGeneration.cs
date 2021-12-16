@@ -22,7 +22,7 @@ public class TerrainGeneration : MonoBehaviour
     [Header("Tile Sprites")]
     public Sprite stone;
     public Sprite dirt;
-    public Sprite snowy_grass;
+    public GameObject SnowHex;
     public Sprite tree;
 
     public GameObject[] worldChunks;
@@ -51,7 +51,7 @@ public class TerrainGeneration : MonoBehaviour
             primalChunk.AddComponent<PrimalChunk>();
             primalChunk.GetComponent<PrimalChunk>().tree = tree;
             primalChunk.GetComponent<PrimalChunk>().dirt = dirt;
-            primalChunk.GetComponent<PrimalChunk>().snowy_grass = snowy_grass;
+            primalChunk.GetComponent<PrimalChunk>().SnowHex = SnowHex;
             primalChunk.GetComponent<PrimalChunk>().stone = stone;
             primalChunk.GetComponent<PrimalChunk>().chunkStart = (i * chunkSize);
             primalChunk.GetComponent<PrimalChunk>().seed = seed;
@@ -89,15 +89,15 @@ public class TerrainGeneration : MonoBehaviour
 
                 if( y < height - dirtLayerHeight) 
                 {
-                    tileSprite = stone;
+                    //tileSprite = stone;
                 } else if(y < height - 1) 
                 {
-                    tileSprite = dirt;
+                    //tileSprite = dirt;
                 } else {
 
                     // Surface
 
-                    tileSprite = snowy_grass;
+                    //tileSprite = snowy_grass;
 
                     int t = Random.Range(0, treeChance);
                     if(t == 1) {
@@ -108,10 +108,10 @@ public class TerrainGeneration : MonoBehaviour
 
                 if(generateCaves) {
                     if(noiseTexture.GetPixel(x,y).r > 0.2f) {
-                        PlacePrimalTile(tileSprite, x, y);
+                        //PlacePrimalTile(x, y);
                     }
                 } else {
-                    PlacePrimalTile(tileSprite, x, y);
+                    //PlacePrimalTile(x, y);
                 }
             }
         }
