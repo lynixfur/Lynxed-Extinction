@@ -13,13 +13,13 @@ public class PrimalChunk : MonoBehaviour
     public int chunkSize = 10;
     public int chunkHeight = 10;
     public float caveFreq = 0.08f;
-    public float terrainFreq = 0.05f;    
+    public float terrainFreq = 0.02f;    
     public float heightMultiplier = 40f;
     public int heightAddition = 25;
     public int dirtLayerHeight = 2;
     public int treeChance = 10;
     public int chunkStart;
-    public bool generateCaves = false;
+    public bool generateCaves = true;
     public Texture2D noiseTexture;
 
     // Start is called before the first frame update
